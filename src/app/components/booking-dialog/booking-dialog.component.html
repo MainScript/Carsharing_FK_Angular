@@ -1,7 +1,11 @@
-<h1 mat-dialog-title>Favorite Animal</h1>
+<h1 mat-dialog-title>{{ data.car.make }} {{ data.car.model }}</h1>
 <div mat-dialog-content>
-  My favorite animal is:
-  <ul>
-    {{data.make}} + " " + {{data.model}}
-  </ul>
+    <div class="priceInfo">{{ priceTotal | currency: 'EUR' }}</div>
+    <div class="duration">
+      {{ data.dateRange[0] | date }} - {{ data.dateRange[1]  | date }} ({{ duration }} days)
+    </div>
+    <div class="actions">
+      <button class="button yes" (click)="onBook()">Book</button>
+      <button class="button no" (click)="onCancel()">Cancel</button>
+    </div>
 </div>

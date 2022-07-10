@@ -15,8 +15,12 @@ export class CarPipe implements PipeTransform {
         year: car.year,
         fuel: car.fuel,
         price: car.price,
-        from: new Date(car.from),
-        to: new Date(car.to)
+        ppm: car.ppm,
+        max_duration: car.max_duration,
+        from_date: new Date(car.from_date),
+        to_date: new Date(car.to_date),
+        from_time: new Date(`01 Jan 1970 ${car.from_time}`),
+        to_time: new Date(`01 Jan 1970 ${car.to_time}`),
       };
     });
   }
@@ -41,7 +45,7 @@ export class CarPipe implements PipeTransform {
 
   filterByDate(cars: Car[], dateRange: Date[]): Car[] {
     return cars.filter(car => {
-      return car.from <= dateRange[0] && car.to >= dateRange[1];
+      return car.from_date <= dateRange[0] && car.to_date >= dateRange[1];
     });
   }
 

@@ -22,6 +22,9 @@ export class HomeComponent implements OnInit{
   cars: Car[] = [];
   carsPipe: CarPipe;
 
+  from: Date;
+  to: Date;
+
   constructor() { 
     this.carsPipe = new CarPipe();
   }
@@ -29,13 +32,15 @@ export class HomeComponent implements OnInit{
   searchCars(search?: string) {
     let fromInput = document.getElementById('fromInp') as HTMLInputElement;
     let toInput = document.getElementById('toInp') as HTMLInputElement;
-    let fromOld = fromInput.value == '' ? new Date() : new Date(fromInput.value);
+    let now = new Date();
+    now = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let fromOld = fromInput.value == '' ? now : new Date(fromInput.value);
     let toOld = toInput.value == '' ? new Date(fromOld.getTime() + 86400000) : new Date(toInput.value);
 
-    let from = new Date(Math.min(fromOld.getTime(), toOld.getTime()));
-    let to = new Date(Math.max(fromOld.getTime(), toOld.getTime()));
+    this.from = new Date(Math.min(fromOld.getTime(), toOld.getTime()));
+    this.to = new Date(Math.max(fromOld.getTime(), toOld.getTime()));
 
-    this.cars = this.carsPipe.filter(this.carsRaw,  this.fuelselection.getRawValue() as FuelSelection, search ?? '', [from, to]);
+    this.cars = this.carsPipe.filter(this.carsRaw,  this.fuelselection.getRawValue() as FuelSelection, search ?? '', [this.from, this.to]);
   }
 
   ngOnInit(): void {
