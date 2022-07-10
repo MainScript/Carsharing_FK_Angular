@@ -1,0 +1,52 @@
+
+.search {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0rem 1rem;
+    .searchbar {
+        width: 25%;
+        display: flex;
+        align-items: center;
+        margin-right: 2rem;
+        padding-top: 0.75rem;
+        input {
+            width: 100%;
+            padding: 0 1rem;
+            height: 40px;
+            border: 1px solid rgb(158, 158, 158);
+            font-size: 16px;
+            font-weight: 300;
+            color: #333;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+            &:focus {
+                border: 1px solid #007bff;
+                box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            }
+        }
+    }
+    .fueltype {
+        margin-left: 1rem;
+        padding-top: 0.5rem;
+        mat-checkbox {
+            margin-right: 0.5rem;
+        }
+    }
+    .bookingrange {
+        padding-top: 0.75rem;
+        margin-left: 1rem;
+    }
+    .resultcnt {
+        margin-left: 1rem;
+        padding-top: 0.75rem;
+    }
+}
+
+.content {
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

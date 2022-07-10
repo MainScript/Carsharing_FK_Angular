@@ -1,0 +1,9 @@
+<div class="car-card">
+    <div class="title">{{ car.make }} {{ car.model }}</div>
+    <div class="subtitle">{{ car.year }} {{ car.fuel | titlecase }}</div>
+    <div class="price">{{ car.price | currency: 'EUR' }}/Day</div>
+    <div class="footer">Available from {{ car.from | date }} to {{ car.to | date }}</div>
+    <div class="actions">
+        <button class="bookbutton" (click)="onBook()">Book</button>
+    </div>
+</div>
