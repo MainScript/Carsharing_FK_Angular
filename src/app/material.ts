@@ -12,6 +12,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSliderModule} from '@angular/material/slider';
 
 export const MaterialComponents = [
     MatCommonModule,
@@ -28,5 +29,6 @@ export const MaterialComponents = [
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSliderModule
 ];

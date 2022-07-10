@@ -1,11 +1,23 @@
-<h1 mat-dialog-title>{{ data.car.make }} {{ data.car.model }}</h1>
+<h1 mat-dialog-title>{{ data.make }} {{ data.model }}</h1>
 <div mat-dialog-content>
-    <div class="priceInfo">{{ priceTotal | currency: 'EUR' }}</div>
-    <div class="duration">
-      {{ data.dateRange[0] | date }} - {{ data.dateRange[1]  | date }} ({{ duration }} days)
+  <form [formGroup]="bookingForm">
+    <div>
+      <label for="date">Date: </label>
+      <input id="date" type="date" formControlName="date" (change)="updateForm()">
     </div>
+    <div>
+      <label for="start_time">Start time: </label>
+      <input id="start_time" type="time" formControlName="start_time" (change)="updateForm()">
+    </div>
+    <div>
+      <label for="duration">Duration: </label>
+      <mat-slider [min]="30" [max]="180" [step]="30" thumbLabel (change)="updateForm()" formControlName="duration"></mat-slider>
+    </div>
+  </form>
+  <p *ngIf="available">Total Price: {{ priceTotal | currency: 'EUR' }}</p>
     <div class="actions">
-      <button class="button yes" (click)="onBook()">Book</button>
+      <button class="button yes" (click)="onBook()" *ngIf="available">Book</button>
+      <p class="error" *ngIf="!available">This car is<br>not available!</p>
       <button class="button no" (click)="onCancel()">Cancel</button>
     </div>
 </div>

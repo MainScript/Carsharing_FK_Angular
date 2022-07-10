@@ -18,8 +18,11 @@ export class HomeComponent implements OnInit{
     diesel: new FormControl(false),
   });
 
+  maxOnPage = 10;
+
   carsRaw: CarRaw[] = CarsJson;
   cars: Car[] = [];
+  shownCars: Car[];
   carsPipe: CarPipe;
 
   from: Date;
@@ -41,11 +44,24 @@ export class HomeComponent implements OnInit{
     this.to = new Date(Math.max(fromOld.getTime(), toOld.getTime()));
 
     this.cars = this.carsPipe.filter(this.carsRaw,  this.fuelselection.getRawValue() as FuelSelection, search ?? '', [this.from, this.to]);
+    this.showCars();
   }
 
   ngOnInit(): void {
     this.cars = this.carsPipe.transform(this.carsRaw);
     this.searchCars();
+    this.showCars();
   }
 
+  onShowMore() {
+    this.maxOnPage += 10;
+    if (this.maxOnPage > this.cars.length) {
+      this.maxOnPage = this.cars.length;
+    }
+    this.showCars();
+  }
+
+  showCars() {
+    this.shownCars = this.cars.slice(0, this.maxOnPage);
+  }
 }

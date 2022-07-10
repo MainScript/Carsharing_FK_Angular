@@ -20,12 +20,8 @@ export class CarCardComponent implements OnDestroy {
 
 
   onBook() {
-    console.log(this.car)
     let dialogRef = this.dialog.open(BookingDialogComponent, {
-      data: {
-        car: this.car,
-        dateRange: this.dateRange,
-      }
+      data: this.car,
     });
 
     dialogRef.afterClosed().subscribe(result => {
