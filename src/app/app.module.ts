@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CarCardComponent } from './components/car-card/car-card.component';
 import { CarPipe } from './pipes/car.pipe';
 import { BookingDialogComponent } from './components/booking-dialog/booking-dialog.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BookingDialogComponent } from './components/booking-dialog/booking-dial
     ...index.components,
     CarCardComponent,
     CarPipe,
-    BookingDialogComponent
+    BookingDialogComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

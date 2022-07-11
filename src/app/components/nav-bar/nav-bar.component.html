@@ -3,7 +3,9 @@
         <a href="home" class="navlink a-l">Home</a>
     </div>
     <div>
-        <a href="login" class="navlink">Login</a>
-        <a href="register" class="navlink">Register</a>
+        <a href="login" class="navlink" *ngIf="customerId < 0">Login</a>
+        <a href="register" class="navlink" *ngIf="customerId < 0">Register</a>
+        <a href="profile" class="navlink" *ngIf="customerId >= 0">Profile</a>
+        <a class="navlink" (click)="onLogout()" *ngIf="customerId >= 0">Logout</a>
     </div>
 </div>
