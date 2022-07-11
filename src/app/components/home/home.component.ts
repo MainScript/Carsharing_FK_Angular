@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Car, CarRaw, FuelSelection } from '../../interfaces/car';
-import CarsJson from '../../../assets/cars.json';
 import { CarPipe } from 'src/app/pipes/car.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarService } from 'src/app/services/car.service';

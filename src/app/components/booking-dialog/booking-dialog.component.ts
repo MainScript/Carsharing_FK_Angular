@@ -30,6 +30,7 @@ export class BookingDialogComponent implements OnInit, OnDestroy {
       this.priceTotal = this.calculatePrice();
     }
     ));
+    this.updateForm();
   }
 
   updateForm() {
@@ -43,9 +44,10 @@ export class BookingDialogComponent implements OnInit, OnDestroy {
 
   get checkAvailable() {
     const date = this.bookingForm.value.date ?? new Date();
-    const start_time = new Date(`01 Jan 1970 ${this.bookingForm.value.start_time}`) ?? new Date();
-    const end_time = new Date(start_time.getTime() + (this.bookingForm.value.duration ?? 30) * 60000);
-    return this.data.from_time <= start_time && this.data.to_time >= end_time && this.data.max_duration >= (this.bookingForm.value.duration ?? 30);
+    let start = this.bookingForm.value.start_time ?? new Date();
+    start = new Date(`01 Jan 1970 ${start.getHours()}:${start.getMinutes()}`);
+    const end_time = new Date(start.getTime() + (this.bookingForm.value.duration ?? 30) * 60000);
+    return this.data.from_time.getTime() <= start.getTime() && this.data.to_time.getTime() >= end_time.getTime() && this.data.max_duration >= (this.bookingForm.value.duration ?? 30);
   }
 
   calculatePrice() {

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import customerJson from '../../assets/customers.json';
 import { Customer } from '../interfaces/customer';
 
 @Injectable({
