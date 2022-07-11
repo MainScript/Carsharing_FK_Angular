@@ -10,11 +10,11 @@
           </section>
     </div>
     <div class="bookingrange">
-        <section>
+        <section [formGroup]="durationForm">
             <label for="from">From: </label>
-            <input type="date" id="from" name="from" id="fromInp" (change)="searchCars()">
-            <label for="to">To: </label>
-            <input type="date" id="to" name="to" id="toInp" (change)="searchCars()">
+            <input type="time" id="from" name="from" id="fromInp" (change)="searchCars()" formControlName="from">
+            <label for="duration">Duration: </label>
+            <mat-slider [min]="30" [max]="180" [step]="30" thumbLabel (change)="searchCars()" formControlName="duration"></mat-slider>
         </section>
     </div>
     <div class="resultcnt">
@@ -23,7 +23,7 @@
 </div>
 <div class="content">
     <div class="cars">
-        <cs-car-card *ngFor="let car of shownCars" [car]="car" [dateRange]="[from, to]"></cs-car-card>
+        <cs-car-card *ngFor="let car of shownCars" [car]="car" [dateRange]="[from, to]" [customerId]="customerId"></cs-car-card>
     </div>
     <button class="showMoreButton" (click)="onShowMore()" *ngIf="maxOnPage < cars.length">Show More...</button>
 </div>

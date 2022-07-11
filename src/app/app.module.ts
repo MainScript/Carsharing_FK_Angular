@@ -12,6 +12,7 @@ import { CarCardComponent } from './components/car-card/car-card.component';
 import { CarPipe } from './pipes/car.pipe';
 import { BookingDialogComponent } from './components/booking-dialog/booking-dialog.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,13 +21,14 @@ import { ProfileComponent } from './components/profile/profile.component';
     CarCardComponent,
     CarPipe,
     BookingDialogComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ...material.MaterialComponents
+    ...material.MaterialComponents,
+    HttpClientModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

@@ -13,6 +13,7 @@ export class CarCardComponent implements OnDestroy {
 
   @Input() car: Car;
   @Input() dateRange: Date[];
+  @Input() customerId: number;
 
   subscriptions: Subscription[] = [];
 

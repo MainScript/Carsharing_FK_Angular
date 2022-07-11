@@ -1,5 +1,5 @@
 export interface Car {
-    id: number;
+    _id?: string;
     make: string;
     model: string;
     year: number;
@@ -7,15 +7,11 @@ export interface Car {
     price: number;
     ppm: number;
     max_duration: number;
-    from_date: Date;
-    to_date: Date;
     from_time: Date;
     to_time: Date;
 }
 
-export interface CarRaw extends Omit<Car, 'from_date' | 'to_date' | 'from_time' | 'to_time'> {
-    from_date: string;
-    to_date: string;
+export interface CarRaw extends Omit<Car, 'from_time' | 'to_time'> {
     from_time: string;
     to_time: string;
 }

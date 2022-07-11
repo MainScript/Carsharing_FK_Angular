@@ -9,7 +9,7 @@ export class CarPipe implements PipeTransform {
   transform(value: CarRaw[]): Car[] {
     return value.map(car => {
       return {
-        id: car.id,
+        _id: car._id,
         make: car.make,
         model: car.model,
         year: car.year,
@@ -17,8 +17,6 @@ export class CarPipe implements PipeTransform {
         price: car.price,
         ppm: car.ppm,
         max_duration: car.max_duration,
-        from_date: new Date(car.from_date),
-        to_date: new Date(car.to_date),
         from_time: new Date(`01 Jan 1970 ${car.from_time}`),
         to_time: new Date(`01 Jan 1970 ${car.to_time}`),
       };
@@ -43,17 +41,20 @@ export class CarPipe implements PipeTransform {
     });
   }
 
-  filterByDate(cars: Car[], dateRange: Date[]): Car[] {
+  filterByTime(cars: Car[], timeRange?: Date[]): Car[] {
+    if (!timeRange) {
+      return cars;
+    }
     return cars.filter(car => {
-      return car.from_date <= dateRange[0] && car.to_date >= dateRange[1];
+      return car.from_time.getTime() <= timeRange[0].getTime() && car.to_time.getTime() >= timeRange[1].getTime() && car.max_duration >= (timeRange[1].getTime() - timeRange[0].getTime()) / 1000 / 60;
     });
   }
 
-  filter(cars: CarRaw[], fuel?: FuelSelection, search?: string, dateRange?: Date[]): Car[] {
+  filter(cars: CarRaw[], fuel?: FuelSelection, search?: string, timeRange?: Date[]): Car[] {
     let filteredCars = this.transform(cars);
     filteredCars = this.search(filteredCars, search);
     filteredCars = this.filterByFuel(filteredCars, fuel ?? { electric: false, petrol: false, diesel: false });
-    filteredCars = this.filterByDate(filteredCars, dateRange ?? [new Date(), new Date()]);
+    filteredCars = this.filterByTime(filteredCars, timeRange);
     return filteredCars;    
   }
 }

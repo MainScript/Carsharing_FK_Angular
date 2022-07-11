@@ -3,12 +3,10 @@
     <div class="subtitle">{{ car.year }} {{ car.fuel | titlecase }}</div>
     <div class="price">{{ car.price | currency: 'EUR' }} + {{ car.ppm | currency: 'EUR' }}/minute</div>
     <div class="footer">
-        <p>Available from {{ car.from_date | date }} to {{ car.to_date | date }}
-        <br>
-        In the time between {{ car.from_time | date: 'HH:mm' }} and {{ car.to_time | date: 'HH:mm' }}</p>
+        <p>Available in the time between {{ car.from_time | date: 'HH:mm' }} and {{ car.to_time | date: 'HH:mm' }}</p>
         <p>Max Duration: {{ car.max_duration }} Minutes</p>
     </div>
     <div class="actions">
-        <button class="bookbutton" (click)="onBook()">Book</button>
+        <button class="bookbutton" (click)="onBook()" *ngIf="customerId >= 0">Book</button>
     </div>
 </div>
