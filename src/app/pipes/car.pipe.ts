@@ -28,7 +28,8 @@ export class CarPipe implements PipeTransform {
       return cars;
     }
     return cars.filter(car => {
-      return car.make.toLowerCase().includes(search.toLowerCase()) || car.model.toLowerCase().includes(search.toLowerCase());
+      const name = car.make + ' ' + car.model;
+      return name.toLowerCase().includes(search.toLowerCase());
     });
   }
 

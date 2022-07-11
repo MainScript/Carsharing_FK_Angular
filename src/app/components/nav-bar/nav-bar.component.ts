@@ -20,7 +20,10 @@ export class NavBarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.customerId = this.authService.findCustomerId();
+    const customer = this.authService.getCustomer();
+    if (customer) {
+      this.customerId = customer.id;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

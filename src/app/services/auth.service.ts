@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import customerJson from '../../assets/customers.json';
@@ -8,26 +9,42 @@ import { Customer } from '../interfaces/customer';
 })
 export class AuthService {
 
-  customers: Customer[] = customerJson;
+  customers: Customer[] = [];
+  currentCustomer: Customer | undefined;
 
-  constructor() { }
+  customersSubscription: any;
 
-  public findCustomerId(): number {
-    const username = localStorage.getItem('username');
-    const password = localStorage.getItem('password');
-    if (username && password) {
-      const customer = this.customers.find(customer => customer.username === username && customer.password === password);
-      if (customer) {
-        return customer.id;
-      }
-      localStorage.removeItem('username');
-      localStorage.removeItem('password');
+  constructor(private http: HttpClient) {
+    this.customersSubscription = this.http.get<Customer[]>('http://localhost:3000/api/customers').subscribe(customers => {
+      this.customers = customers;
+    });
+  }
+
+  private findCustomer(username: string, password?: string): Customer | undefined {
+    if (this.customers.length == 0) {
+      return undefined;
     }
-    return -1;
+    if (password) {
+      return this.customers.find(customer => customer.username === username && customer.password === password);
+    } else {
+      return this.customers.find(customer => customer.username === username);
+    }
+  }
+
+  public getCustomer(): Customer | undefined {
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');    
+    if (username && password) {
+      const customer = this.findCustomer(username, password);
+      if (customer) {
+        return customer;
+      }
+    }
+    return undefined;
   }
 
   public login(username: string, password: string): boolean {
-    const customer = this.customers.find(customer => customer.username === username && customer.password === password);
+    const customer = this.findCustomer(username, password);
     if (customer) {
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
@@ -48,12 +65,22 @@ export class AuthService {
     if (!username.match(/^[a-zA-Z0-9]+$/)) {
       return [0, 'Username must contain only letters and numbers'];
     }
-    const customer = this.customers.find(customer => customer.username === username);
+    const customer = this.findCustomer(username);
     if (!customer) {
       this.customers.push({
         id: this.customers.length + 1,
         username: username,
         password: password
+      });
+      this.http.post('http://localhost:3000/api/customers', {
+        username: username,
+        password: password
+      }).subscribe((answer: any) => {
+        if (answer.error) {
+          return [0, answer.error];
+        } else {
+          return [-1, ''];
+        }
       });
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);

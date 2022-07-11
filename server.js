@@ -44,10 +44,9 @@ var Car = mongo.model('Car', carSchema, 'cars');
 var Customer = mongo.model('Customer', customerSchema, 'customers');
 
 app.get('/api/cars', function(req, res) {
-    // get all cars
     Car.find(function(err, cars) {
         if(err) {
-            res.send(err);
+            res.json({error: err});
         } else {
             res.json(cars);
         }
@@ -59,13 +58,28 @@ app.get('/api/test', function(req, res) {
 });
 
 app.get('/api/customer', function(req, res) {
-    var username = req.query.username;
-    var password = req.query.password;
+    var username = req.body.username;
+    var password = req.body.password;
+
     Customer.findOne({username: username, password: password}, function(err, customer) {
         if(err) {
-            res.send(err);
+            res.json({error: err});
         } else {
-            res.json(customer);
+            if (customer) {
+                res.json(customer);
+            } else {
+                res.json({error: 'No customer found'});
+            }
+        }
+    });
+});
+
+app.get('/api/customers', function(req, res) {
+    Customer.find(function(err, customers) {
+        if(err) {
+            res.json({error: err});
+        } else {
+            res.json(customers);
         }
     });
 });
@@ -73,17 +87,25 @@ app.get('/api/customer', function(req, res) {
 app.post('/api/customer', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    var customer = new Customer({
-        username: username,
-        password: password
-    });
-    customer.save(function(err) {
+    Customer.findOne({username: username}, function(err, customer) {
         if(err) {
-            res.send(err);
+            res.json({error: err});
+        } else if(customer) {
+            res.json({error: 'Customer already exists'});
         } else {
-            res.json({message: 'Customer created!'});
+            var newCustomer = new Customer({
+                username: username,
+                password: password
+            });
+            newCustomer.save(function(err, customer) {
+                if(err) {
+                    res.json({error: err});
+                } else {
+                    res.json(customer);
+                }
+            });
         }
-    });
+    });    
 });
 
 app.listen(3000, function() {

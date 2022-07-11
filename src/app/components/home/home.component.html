@@ -1,6 +1,8 @@
 <div class="search">
     <div class="searchbar">
-        <input matInput placeholder="Search" type="text" (keyup)="searchCars(searchInput.value)" #searchInput>
+        <section [formGroup]="searchbar">
+            <input matInput placeholder="Search" type="text" (keyup)="searchCars()" formControlName="search" >
+        </section>
     </div>
     <div class="fueltype">
         <section [formGroup]="fuelselection">

@@ -18,7 +18,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.interval = setInterval(() => {
-      this.customerId = this.authService.findCustomerId();
+      const customer = this.authService.getCustomer();
+      if (customer) {
+        this.customerId = customer.id;
+      }
     }, 100);
   }
 

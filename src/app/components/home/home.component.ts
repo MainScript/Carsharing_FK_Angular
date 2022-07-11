@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit{
     duration: new FormControl(30),
   });
 
+  searchbar = new FormGroup({
+    search: new FormControl(''),
+  });
+
   maxOnPage = 10;
 
   customerId = -1;
@@ -52,7 +56,7 @@ export class HomeComponent implements OnInit{
     this.from = fromInput.value == '' ? now : new Date(`01 Jan 1970 ${fromInput.value}`);
     this.to = new Date(this.from.getTime() + (this.durationForm.value.duration ?? 30) * 60 * 1000);
 
-    this.cars = this.carsPipe.filter(this.carsRaw,  this.fuelselection.getRawValue() as FuelSelection, search ?? '', [this.from, this.to]);
+    this.cars = this.carsPipe.filter(this.carsRaw,  this.fuelselection.getRawValue() as FuelSelection, this.searchbar.value.search ?? '', [this.from, this.to]);
     this.showCars();
   }
 
@@ -62,7 +66,10 @@ export class HomeComponent implements OnInit{
       this.cars = this.carsPipe.transform(this.carsRaw);
       this.searchCars();
       this.showCars();
-      this.customerId = this.authService.findCustomerId();
+      const customer = this.authService.getCustomer();
+      if (customer) {
+        this.customerId = customer.id;
+      }
     });
   }
 
