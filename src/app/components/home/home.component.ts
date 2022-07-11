@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit{
 
   maxOnPage = 10;
 
-  customerId = -1;
+  customerId = '';
 
   carsRaw: CarRaw[] = [];
   cars: Car[] = [];
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit{
       this.showCars();
       const customer = this.authService.getCustomer();
       if (customer) {
-        this.customerId = customer.id;
+        this.customerId = customer._id;
       }
     });
   }

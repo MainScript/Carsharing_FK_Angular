@@ -10,7 +10,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Carsharing_FK_Angular';
 
-  customerId = -1;
+  customerId = '';
 
   interval: NodeJS.Timer;
 
@@ -20,7 +20,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.interval = setInterval(() => {
       const customer = this.authService.getCustomer();
       if (customer) {
-        this.customerId = customer.id;
+        this.customerId = customer._id;
+      } else {
+        this.customerId = '';
       }
     }, 100);
   }

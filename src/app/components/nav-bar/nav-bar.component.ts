@@ -7,23 +7,15 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnInit, OnChanges {
+export class NavBarComponent implements OnChanges {
 
-  @Input() customerId = -1;
+  @Input() customerId = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
   onLogout() {
     this.authService.logout();
     this.router.navigate(['/login']);
-    this.customerId = -1;
-  }
-
-  ngOnInit() {
-    const customer = this.authService.getCustomer();
-    if (customer) {
-      this.customerId = customer.id;
-    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -31,6 +23,4 @@ export class NavBarComponent implements OnInit, OnChanges {
       this.customerId = changes['customerId'].currentValue;
     }
   }
-  
-
 }

@@ -9,7 +9,6 @@ import { Customer } from '../interfaces/customer';
 export class AuthService {
 
   customers: Customer[] = [];
-  currentCustomer: Customer | undefined;
 
   customersSubscription: any;
 
@@ -66,18 +65,14 @@ export class AuthService {
     }
     const customer = this.findCustomer(username);
     if (!customer) {
-      this.customers.push({
-        id: this.customers.length + 1,
-        username: username,
-        password: password
-      });
-      this.http.post('http://localhost:3000/api/customers', {
+      this.http.post('http://localhost:3000/api/customer', {
         username: username,
         password: password
       }).subscribe((answer: any) => {
         if (answer.error) {
           return [0, answer.error];
         } else {
+          this.customers.push(answer);
           return [-1, ''];
         }
       });

@@ -40,8 +40,18 @@ var customerSchema = new mongo.Schema({
     password: String,
 });
 
+var bookingSchema = new mongo.Schema({
+    customer_id: String,
+    car_id: String,
+    date: String,
+    from_time: String,
+    to_time: String,
+    price: Number,
+});
+
 var Car = mongo.model('Car', carSchema, 'cars');
 var Customer = mongo.model('Customer', customerSchema, 'customers');
+var Booking = mongo.model('Booking', bookingSchema, 'bookings');
 
 app.get('/api/cars', function(req, res) {
     Car.find(function(err, cars) {
@@ -107,6 +117,54 @@ app.post('/api/customer', function(req, res) {
         }
     });    
 });
+
+app.post('/api/booking', function(req, res) {
+    var booking = req.body;
+    var newBooking = new Booking(booking);
+
+    console.log(booking);
+
+    newBooking.save(function(err, booking) {
+        if(err) {
+            res.json({error: err});
+        } else {
+            res.json(booking);
+        }
+    });
+});
+
+app.get('/api/bookings', function(req, res) {
+    Booking.find(function(err, bookings) {
+        if(err) {
+            res.json({error: err});
+        } else {
+            res.json(bookings);
+        }
+    });
+});
+
+app.get('/api/bookingsCustomer/:customer_id', function(req, res) {
+    var customer_id = req.params.customer_id;
+    Booking.find({customer_id: customer_id}, function(err, bookings) {
+        if(err) {
+            res.json({error: err});
+        } else {
+            res.json(bookings);
+        }
+    });
+});
+
+app.get('/api/bookingsCar/:car_id', function(req, res) {
+    var car_id = req.params.car_id;
+    Booking.find({car_id: car_id}, function(err, bookings) {
+        if(err) {
+            res.json({error: err});
+        } else {
+            res.json(bookings);
+        }
+    });
+});
+
 
 app.listen(3000, function() {
     console.log('Server running on port 3000');

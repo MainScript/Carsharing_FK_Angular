@@ -12,6 +12,4 @@ export class CarService {
   public getCars() {
     return this.http.get<CarRaw[]>('http://localhost:3000/api/cars');
   }
-
-
 }
