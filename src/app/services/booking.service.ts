@@ -16,11 +16,11 @@ export class BookingService {
   }
 
   getBookingsByCustomerId(customerId: string) {
-    return this.http.get<Booking[]>('http://localhost:3000/api/bookingsCustomer/' + customerId);
+    return this.http.get<Booking[]>(`http://localhost:3000/api/bookingsCustomer/${customerId}`);
   }
 
   getBookingsByCarId(carId: string) {
-    return this.http.get<Booking[]>('http://localhost:3000/api/bookingsCar/' + carId);
+    return this.http.get<Booking[]>(`http://localhost:3000/api/bookingsCar/${carId}`);
   }
 
   bookCar(booking: Booking) {

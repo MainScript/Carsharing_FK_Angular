@@ -31,7 +31,7 @@ export class AuthService {
 
   public getCustomer(): Customer | undefined {
     const username = localStorage.getItem('username');
-    const password = localStorage.getItem('password');    
+    const password = localStorage.getItem('password');
     if (username && password) {
       const customer = this.findCustomer(username, password);
       if (customer) {

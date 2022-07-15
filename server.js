@@ -63,6 +63,23 @@ app.get('/api/cars', function(req, res) {
     });
 });
 
+app.get('/api/carsByIds', function(req, res) {
+    var ids = JSON.parse(req.query.ids);
+    if(ids.every(function(id) {
+        return /^[0-9a-fA-F]{24}$/.test(id);
+    })) {
+        Car.find({_id: {$in: ids}}, function(err, cars) {
+            if(err) {
+                res.json({error: err});
+            } else {
+                res.json(cars);
+            }
+        });
+    } else {
+        res.json({error: 'Invalid id'});
+    }
+});
+
 app.get('/api/test', function(req, res) {
     res.send('Hello World!');
 });
@@ -121,8 +138,6 @@ app.post('/api/customer', function(req, res) {
 app.post('/api/booking', function(req, res) {
     var booking = req.body;
     var newBooking = new Booking(booking);
-
-    console.log(booking);
 
     newBooking.save(function(err, booking) {
         if(err) {

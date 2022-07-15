@@ -1,1 +1,15 @@
-<p>profile works!</p>
+<div class="profile-content">
+    <div class="header">
+        <h1>{{ customer.username }}</h1>
+    </div>
+    <div class="content">
+        <div class="past-bookings">
+            <h2>Past Bookings</h2>
+            <cs-booking-card *ngFor="let car of pastCars" [carBooking]="car"></cs-booking-card>
+        </div>
+        <div class="bookings">
+            <h2>Future Bookings</h2>
+            <cs-booking-card *ngFor="let car of currentCars" [carBooking]="car"></cs-booking-card>
+        </div>
+    </div>
+</div>

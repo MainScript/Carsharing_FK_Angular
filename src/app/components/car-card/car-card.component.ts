@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, take } from 'rxjs';
 import { Booking } from 'src/app/interfaces/booking';
@@ -11,16 +11,16 @@ import { BookingDialogComponent } from '../booking-dialog/booking-dialog.compone
   templateUrl: './car-card.component.html',
   styleUrls: ['./car-card.component.scss']
 })
-export class CarCardComponent implements OnDestroy {
+export class CarCardComponent implements OnDestroy, OnChanges {
 
   @Input() car: Car;
   @Input() dateRange: Date[];
   @Input() customerId: string;
+  @Input() enableBooking: boolean = false;
 
   subscriptions: Subscription[] = [];
 
   constructor(public dialog: MatDialog, private bookingService: BookingService) { }
-
 
   onBook() {
     this.bookingService.getBookingsByCarId(this.car._id ?? '').pipe(take(1)).subscribe(bookings => {
@@ -33,10 +33,10 @@ export class CarCardComponent implements OnDestroy {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           const booking: Booking = {
-            customer_id: this.customerId,
             ...result,
+            customer_id: this.customerId,
           };
-          this.bookingService.bookCar(result).subscribe((result: any) => {
+          this.bookingService.bookCar(booking).subscribe((result: any) => {
             if (result.error) {
               console.log(result);
             }
@@ -44,7 +44,15 @@ export class CarCardComponent implements OnDestroy {
         }
       });
     });
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['customerId']?.currentValue) {
+      this.customerId = changes['customerId'].currentValue;
+    }
+    if (changes['enableBooking']?.currentValue) {
+      this.enableBooking = changes['enableBooking'].currentValue;
+    }
   }
 
   ngOnDestroy(): void {

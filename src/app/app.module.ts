@@ -13,6 +13,7 @@ import { CarPipe } from './pipes/car.pipe';
 import { BookingDialogComponent } from './components/booking-dialog/booking-dialog.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BookingCardComponent } from './components/booking-card/booking-card.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     CarPipe,
     BookingDialogComponent,
     ProfileComponent,
+    BookingCardComponent,
   ],
   imports: [
     BrowserModule,

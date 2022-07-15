@@ -12,4 +12,8 @@ export class CarService {
   public getCars() {
     return this.http.get<CarRaw[]>('http://localhost:3000/api/cars');
   }
+
+  public getCarsById(ids: string[]) {
+    return this.http.get<CarRaw[]>(`http://localhost:3000/api/carsByIds?ids=${JSON.stringify(ids)}`);
+  }
 }

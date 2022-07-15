@@ -7,6 +7,6 @@
         <p>Max Duration: {{ car.max_duration }} Minutes</p>
     </div>
     <div class="actions">
-        <button class="bookbutton" (click)="onBook()" *ngIf="customerId != ''">Book</button>
+        <button class="bookbutton" (click)="onBook()" *ngIf="customerId != '' && enableBooking">Book</button>
     </div>
 </div>
