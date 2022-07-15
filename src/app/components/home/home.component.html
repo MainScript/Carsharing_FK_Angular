@@ -30,7 +30,7 @@
     <button class="showMoreButton" (click)="onShowMore()" *ngIf="maxOnPage < cars.length">Show More...</button>
 </div>
 <div class="addCarDiv">
-    <button mat-fab color="accent" class="addCarButton">
+    <button mat-fab color="accent" class="addCarButton" (click)="addCar()">
         <mat-icon>add</mat-icon>
       </button>
 </div>

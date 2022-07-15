@@ -14,6 +14,7 @@ import { BookingDialogComponent } from './components/booking-dialog/booking-dial
 import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookingCardComponent } from './components/booking-card/booking-card.component';
+import { AddCarDialogComponent } from './components/add-car-dialog/add-car-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { BookingCardComponent } from './components/booking-card/booking-card.com
     BookingDialogComponent,
     ProfileComponent,
     BookingCardComponent,
+    AddCarDialogComponent,
   ],
   imports: [
     BrowserModule,

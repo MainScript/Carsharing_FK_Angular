@@ -1,0 +1,88 @@
+<mat-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="basicInfos" label="Basic Infos">
+      <form [formGroup]="basicInfos">
+        <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Make</mat-label>
+              <input matInput placeholder="Make" formControlName="make" required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Model</mat-label>
+              <input matInput placeholder="Model" formControlName="model" required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Year</mat-label>
+              <input matInput placeholder="Year" formControlName="year" required>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-radio-group formControlName="fuel">
+                <mat-radio-button value="petrol" class="radioButton">Petrol</mat-radio-button>
+                <mat-radio-button value="diesel" class="radioButton">Diesel</mat-radio-button>
+                <mat-radio-button value="electric" class="radioButton">Electric</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="priceInfos" label="Price Infos">
+      <form [formGroup]="priceInfos">
+        <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Price</mat-label>
+              <input matInput formControlName="price" placeholder="Basic Price" required type="number">
+            </mat-form-field>€
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+              <mat-label>Price per minute</mat-label>
+              <input matInput formControlName="ppm" placeholder="Price per minute" required type="number">
+            </mat-form-field>€/min
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="timeInfos" label="Time Infos">
+        <form [formGroup]="timeInfos">
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>From</mat-label>
+                    <input matInput formControlName="from_time" placeholder="From" required type="time">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>To</mat-label>
+                    <input matInput formControlName="to_time" placeholder="To" required type="time">
+                </mat-form-field>
+            </div>
+            <div>
+                  <label for="max_duration">Duration: </label>
+                  <mat-slider [min]="30" [max]="180" [step]="30" thumbLabel formControlName="max_duration"></mat-slider>
+            </div>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button (click)="addCar()">Done</button>
+      </div>
+    </mat-step>
+  </mat-stepper>

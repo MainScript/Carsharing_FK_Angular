@@ -5,6 +5,8 @@ import { CarPipe } from 'src/app/pipes/car.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { CarService } from 'src/app/services/car.service';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCarDialogComponent } from '../add-car-dialog/add-car-dialog.component';
 
 
 @Component({
@@ -43,7 +45,7 @@ export class HomeComponent implements OnInit{
 
   carService: CarService;
 
-  constructor(private authService: AuthService, http: HttpClient) { 
+  constructor(private authService: AuthService, http: HttpClient, public addCarDialog: MatDialog) { 
     this.carsPipe = new CarPipe();
     this.carService = new CarService(http);
   }
@@ -82,5 +84,20 @@ export class HomeComponent implements OnInit{
 
   showCars() {
     this.shownCars = this.cars.slice(0, this.maxOnPage);
+  }
+
+  addCar() {
+    const dialogRef = this.addCarDialog.open(AddCarDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.carService.addCar(result).subscribe(car => {
+          this.carsRaw.push(car);
+          const newCar = this.carsPipe.transform([car]);
+          this.cars = [...this.cars, ...newCar];
+          this.searchCars();
+          this.showCars();
+        });
+      }
+    });
   }
 }

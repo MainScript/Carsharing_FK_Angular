@@ -80,6 +80,17 @@ app.get('/api/carsByIds', function(req, res) {
     }
 });
 
+app.post('/api/addCar', function(req, res) {
+    var car = new Car(req.body);
+    car.save(function(err, car) {
+        if(err) {
+            res.json({error: err});
+        } else {
+            res.json(car);
+        }
+    });
+});
+
 app.get('/api/test', function(req, res) {
     res.send('Hello World!');
 });

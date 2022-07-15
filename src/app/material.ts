@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatStepperModule} from '@angular/material/stepper';
 
 export const MaterialComponents = [
     MatCommonModule,
@@ -30,5 +31,6 @@ export const MaterialComponents = [
     ReactiveFormsModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatSliderModule
+    MatSliderModule,
+    MatStepperModule
 ];
