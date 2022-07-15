@@ -22,8 +22,13 @@ export class ProfileComponent implements OnInit {
     username: '',
     password: '',
   };
+
   pastCars: BookingWithCar[] = [];
   currentCars: BookingWithCar[] = [];
+
+  totalCost: number;
+  averageCost: number;
+
 
   constructor(private authService: AuthService, private bookingService: BookingService, private carService: CarService) { }
 
@@ -37,6 +42,10 @@ export class ProfileComponent implements OnInit {
           this.bookings = bookings;
           this.getPastBookings();
           this.getCurrentBookings();
+          this.totalCost = this.bookings.reduce((acc, booking) => {
+            return acc + booking.price;
+          }, 0);
+          this.averageCost = this.totalCost / (this.bookings.length || 1);
         });
       }
       if (new Date().getTime() - now.getTime() > 1000) {

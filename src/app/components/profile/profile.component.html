@@ -12,4 +12,15 @@
             <cs-booking-card *ngFor="let car of currentCars" [carBooking]="car"></cs-booking-card>
         </div>
     </div>
+    <div class="costs">
+        <h2>Costs</h2>
+        <div class="cost">
+            <div class="title">Total Cost</div>
+            <div class="value">{{ totalCost | currency: 'EUR' }}</div>
+        </div>
+        <div class="cost">
+            <div class="title">Average Cost</div>
+            <div class="value">{{ averageCost | currency: 'EUR' }}</div>
+        </div>
+    </div>
 </div>
