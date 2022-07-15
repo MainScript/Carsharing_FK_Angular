@@ -22,8 +22,8 @@
             outline: none;
             transition: all 0.3s ease-in-out;
             &:focus {
-                border: 1px solid #007bff;
-                box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+                border: 1px solid #ff4081;
+                box-shadow: 0 0 10px rgba(204, 51, 102, 0.5);
             }
         }
     }
@@ -67,8 +67,19 @@
     transition: all 0.3s ease-in-out;
     border: none;
     padding: 0.5rem 1rem;
-    background-color: #007bff;
+    background-color: #ff4081;
     &:hover {
-        background-color: #0069d9;
+        background-color: #ca3466;
+    }
+}
+
+.addCarDiv {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    .addCarButton {
+        &:hover {
+            background-color: #ca3466;
+        }
     }
 }
