@@ -7,6 +7,7 @@ import { CarService } from 'src/app/services/car.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCarDialogComponent } from '../add-car-dialog/add-car-dialog.component';
+import { Customer } from 'src/app/interfaces/customer';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class HomeComponent implements OnInit{
 
   maxOnPage = 10;
 
-  customerId = '';
+  customer: Customer;
 
   carsRaw: CarRaw[] = [];
   cars: Car[] = [];
@@ -69,7 +70,7 @@ export class HomeComponent implements OnInit{
       this.showCars();
       const customer = this.authService.getCustomer();
       if (customer) {
-        this.customerId = customer._id;
+        this.customer = customer;
       }
     });
   }

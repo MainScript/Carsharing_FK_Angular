@@ -25,11 +25,11 @@
 </div>
 <div class="content">
     <div class="cars">
-        <cs-car-card *ngFor="let car of shownCars" [car]="car" [dateRange]="[from, to]" [customerId]="customerId" [enableBooking]="true"></cs-car-card>
+        <cs-car-card *ngFor="let car of shownCars" [car]="car" [dateRange]="[from, to]" [customerId]="customer?._id ?? ''" [enableBooking]="true"></cs-car-card>
     </div>
     <button class="showMoreButton" (click)="onShowMore()" *ngIf="maxOnPage < cars.length">Show More...</button>
 </div>
-<div class="addCarDiv">
+<div class="addCarDiv" *ngIf="customer?.username === 'admin'">
     <button mat-fab color="accent" class="addCarButton" (click)="addCar()">
         <mat-icon>add</mat-icon>
       </button>

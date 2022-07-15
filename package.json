@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start:dev": "ng serve",
+    "start": "ng serve",
     "test": "ng test",
     "start:final": "ng serve --configuration=production",
     "start:backend": "node ./server.js",
