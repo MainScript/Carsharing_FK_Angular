@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { Booking, BookingWithCar } from 'src/app/interfaces/booking';
 import { Car } from 'src/app/interfaces/car';

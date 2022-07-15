@@ -1,5 +1,5 @@
 <div class="car-card">
-    <div class="title">{{ car.make }} {{ car.model }} {{ car.fuel == 'electric' ? 'E' : ''}} </div>
+    <div class="title">{{ car.make }} {{ car.model }} {{ car.fuel === 'electric' ? 'E' : ''}} </div>
     <div class="subtitle">{{ car.year }} {{ car.fuel | titlecase }}</div>
     <div class="price">{{ car.price | currency: 'EUR' }} + {{ car.ppm | currency: 'EUR' }}/minute</div>
     <div class="footer">
@@ -7,6 +7,6 @@
         <p>Max Duration: {{ car.max_duration }} Minutes</p>
     </div>
     <div class="actions">
-        <button class="bookbutton" (click)="onBook()" *ngIf="customerId != '' && enableBooking">Book</button>
+        <button class="bookbutton" (click)="onBook()" *ngIf="customerId !== '' && enableBooking">Book</button>
     </div>
 </div>

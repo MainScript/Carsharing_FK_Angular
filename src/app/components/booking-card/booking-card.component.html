@@ -1,5 +1,5 @@
 <div class="booking-card">
-    <div class="title">{{ car.make }} {{ car.model }} {{ car.fuel == 'electric' ? 'E' : ''}} </div>
+    <div class="title">{{ car.make }} {{ car.model }} {{ car.fuel === 'electric' ? 'E' : ''}} </div>
     <div class="subtitle">{{ car.year }} {{ car.fuel | titlecase }}</div>
     <div class="price">{{ car.price + (car.ppm * duration) | currency: 'EUR' }}</div>
     <div class="footer">

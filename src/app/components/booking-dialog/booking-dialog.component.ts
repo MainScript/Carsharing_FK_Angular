@@ -41,7 +41,7 @@ export class BookingDialogComponent implements OnInit, OnDestroy {
   
   constructor(@Inject(MAT_DIALOG_DATA) public data: { car: Car, bookings: Booking[] }, public dialogRef: MatDialogRef<BookingDialogComponent>, private bookingService: BookingService) { }
   ngOnInit(): void {
-    this.subscriptions.push(this.bookingForm.valueChanges.subscribe(value => {
+    this.subscriptions.push(this.bookingForm.valueChanges.subscribe( (_) => {
       this.priceTotal = this.calculatePrice();
     }
     ));

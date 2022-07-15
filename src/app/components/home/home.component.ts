@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Car, CarRaw, FuelSelection } from '../../interfaces/car';
 import { CarPipe } from 'src/app/pipes/car.pipe';
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit{
     this.carService = new CarService(http);
   }
 
-  searchCars(search?: string) {
+  searchCars() {
     let fromInput = document.getElementById('fromInp') as HTMLInputElement;
     let now = new Date();
     now = new Date(`01 Jan 1970 ${now.getHours()}:${now.getMinutes()}`);

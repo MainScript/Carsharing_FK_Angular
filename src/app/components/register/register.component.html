@@ -2,15 +2,15 @@
     <div class="register">
         <div class="registerbar">
             <input matInput placeholder="Username" type="text" formControlName="username">
-            <p class="error" *ngIf="error[0] == 0">{{ error[1] }}</p>
+            <p class="error" *ngIf="error[0] === 0">{{ error[1] }}</p>
         </div>
         <div class="registerbar">
             <input matInput placeholder="Password" type="password" formControlName="password">
-            <p class="error" *ngIf="error[0] == 1">{{ error[1] }}</p>
+            <p class="error" *ngIf="error[0] === 1">{{ error[1] }}</p>
         </div>
         <div class="registerbar">
             <input matInput placeholder="Confirm Password" type="password" formControlName="confirmPassword">
-            <p class="error" *ngIf="error[0] == 1">{{ error[1] }}</p>
+            <p class="error" *ngIf="error[0] === 1">{{ error[1] }}</p>
         </div>
         <div>
             <button mat-raised-button color="primary" (click)="onRegister()">Register</button>
