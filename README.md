@@ -7,5 +7,7 @@
 * Do `npm install`
 * Do `npm run start:final`
 * In another terminal do `npm run start:backend`
+
+* Open up a browser window and navigate to `localhost:4200`
 ## Tests
 * Run `npm run test`
