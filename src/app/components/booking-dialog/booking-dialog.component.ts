@@ -102,6 +102,12 @@ export class BookingDialogComponent implements OnInit, OnDestroy {
       if (end_time.getTime() >= bookingStart.getTime() && end_time.getTime() <= bookingEnd.getTime()) {
         return true;
       }
+      if (bookingStart.getTime() >= start.getTime() && bookingStart.getTime() <= end_time.getTime()) {
+        return true;
+      }
+      if (bookingEnd.getTime() >= start.getTime() && bookingEnd.getTime() <= end_time.getTime()) {
+        return true;
+      }
     });
     if (invalidBookings.length > 0) {
       return false;
