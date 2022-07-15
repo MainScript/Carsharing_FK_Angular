@@ -1,5 +1,5 @@
-# Endabgabe Software Design SS22 Felix Kakuschke
-## Thema: Carsharing
+# Final Submission "Software Design SS22" by Felix Kakuschke
+## Subject: Car Sharing
 ## First Start
 * Set up a MongoDB Database called `carsharing_db` located on port `27017`
   * See https://www.mongodb.com/docs/compass/current/connect/ for additional informations
