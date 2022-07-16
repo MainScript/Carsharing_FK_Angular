@@ -22,4 +22,8 @@ export class DatetimePipe implements PipeTransform {
       return `${endDate.getHours()}:${endDate.getMinutes()}`;
     }
   }
+
+  timeRangeToMinutes(timeRange: Date[]): number {
+    return ((timeRange[1].getTime() - timeRange[0].getTime()) / 1000 / 60);
+  }
 }
