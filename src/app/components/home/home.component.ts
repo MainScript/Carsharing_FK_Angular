@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCarDialogComponent } from '../add-car-dialog/add-car-dialog.component';
 import { Customer } from 'src/app/interfaces/customer';
+import { DatetimePipe } from 'src/app/pipes/datetime.pipe';
 
 
 @Component({
@@ -46,16 +47,17 @@ export class HomeComponent implements OnInit{
 
   carService: CarService;
 
+  dateTimePipe: DatetimePipe;
+
   constructor(private authService: AuthService, http: HttpClient, public addCarDialog: MatDialog) { 
     this.carsPipe = new CarPipe();
     this.carService = new CarService(http);
+    this.dateTimePipe = new DatetimePipe();
   }
 
   searchCars() {
     let fromInput = document.getElementById('fromInp') as HTMLInputElement;
-    let now = new Date();
-    now = new Date(`01 Jan 1970 ${now.getHours()}:${now.getMinutes()}`);
-    this.from = fromInput.value == '' ? now : new Date(`01 Jan 1970 ${fromInput.value}`);
+    this.from = this.dateTimePipe.timeOrNowToUnixTime(fromInput.value);
     this.to = new Date(this.from.getTime() + (this.durationForm.value.duration ?? 30) * 60 * 1000);
 
     this.cars = this.carsPipe.filter(this.carsRaw,  this.fuelselection.getRawValue() as FuelSelection, this.searchbar.value.search ?? '', [this.from, this.to]);

@@ -32,7 +32,7 @@ export class DatetimePipe implements PipeTransform {
   }
 
   timeOrNowToUnixTime(time: string | undefined): Date {
-    if (typeof time === 'string') {
+    if (typeof time === 'string' && time.length > 0) {
       return this.timeToUnixTime(time);
     } else {
       const now = new Date();
