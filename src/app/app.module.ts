@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookingCardComponent } from './components/booking-card/booking-card.component';
 import { AddCarDialogComponent } from './components/add-car-dialog/add-car-dialog.component';
+import { DatetimePipe } from './pipes/datetime.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AddCarDialogComponent } from './components/add-car-dialog/add-car-dialo
     ProfileComponent,
     BookingCardComponent,
     AddCarDialogComponent,
+    DatetimePipe,
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Booking } from 'src/app/interfaces/booking';
 import { Car, CarRaw } from 'src/app/interfaces/car';
+import { DatetimePipe } from 'src/app/pipes/datetime.pipe';
 
 @Component({
   selector: 'cs-add-car-dialog',
@@ -32,26 +33,15 @@ export class AddCarDialogComponent {
 
   subscriptions: Subscription[] = [];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { car: Car, bookings: Booking[] }, public dialogRef: MatDialogRef<AddCarDialogComponent>) { }
+  dateTimePipe: DatetimePipe;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { car: Car, bookings: Booking[] }, public dialogRef: MatDialogRef<AddCarDialogComponent>) {
+    this.dateTimePipe = new DatetimePipe();
+   }
 
   addCar() {
-    const start_time = this.timeInfos.value.from_time as Date;
-    let start: string;
-    if (typeof start_time === 'string') {
-      start = start_time
-    } else {
-      start = `${start_time.getHours()}:${start_time.getMinutes()}`;
-    }
-
-    const end_time = this.timeInfos.value.to_time as Date;
-    let end: string;
-    if (typeof end_time === 'string') {
-      end = end_time;
-    } else {
-      const startDate = new Date(`01 Jan 1970 ${start}`);
-      const endDate = new Date(startDate.getTime() + (this.timeInfos.value.max_duration as number * 60000));
-      end = `${endDate.getHours()}:${endDate.getMinutes()}`;
-    }
+    const start = this.dateTimePipe.transform(this.timeInfos.value.from_time as Date);
+    const end = this.dateTimePipe.transformEnd(this.timeInfos.value.to_time as Date, start);
     const result: CarRaw = {
       make: this.basicInfos.value.make as string,
       model: this.basicInfos.value.model as string,
