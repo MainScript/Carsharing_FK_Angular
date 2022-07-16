@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { take } from 'rxjs';
 
 import { Customer } from '../interfaces/customer';
 
@@ -13,7 +14,7 @@ export class AuthService {
   customersSubscription: any;
 
   constructor(private http: HttpClient) {
-    this.customersSubscription = this.http.get<Customer[]>('http://localhost:3000/api/customers').subscribe(customers => {
+    this.customersSubscription = this.http.get<Customer[]>('http://localhost:3000/api/customers').pipe(take(1)).subscribe(customers => {
       this.customers = customers;
     });
   }
@@ -68,7 +69,7 @@ export class AuthService {
       this.http.post('http://localhost:3000/api/customer', {
         username: username,
         password: password
-      }).subscribe((answer: any) => {
+      }).pipe(take(1)).subscribe((answer: any) => {
         if (answer.error) {
           return [0, answer.error];
         } else {

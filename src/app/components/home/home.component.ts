@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddCarDialogComponent } from '../add-car-dialog/add-car-dialog.component';
 import { Customer } from 'src/app/interfaces/customer';
 import { DatetimePipe } from 'src/app/pipes/datetime.pipe';
+import { Subscription, take } from 'rxjs';
 
 
 @Component({
@@ -49,6 +50,8 @@ export class HomeComponent implements OnInit{
 
   dateTimePipe: DatetimePipe;
 
+  subscriptions: Subscription[] = [];
+
   constructor(private authService: AuthService, http: HttpClient, public addCarDialog: MatDialog) { 
     this.carsPipe = new CarPipe();
     this.carService = new CarService(http);
@@ -65,7 +68,7 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.carService.getCars().subscribe(cars => {
+    this.subscriptions.push(this.carService.getCars().subscribe(cars => {
       this.carsRaw = cars;
       this.cars = this.carsPipe.transform(this.carsRaw);
       this.searchCars();
@@ -74,7 +77,7 @@ export class HomeComponent implements OnInit{
       if (customer) {
         this.customer = customer;
       }
-    });
+    }));
   }
 
   onShowMore() {
@@ -91,9 +94,9 @@ export class HomeComponent implements OnInit{
 
   addCar() {
     const dialogRef = this.addCarDialog.open(AddCarDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
       if (result) {
-        this.carService.addCar(result).subscribe(car => {
+        this.carService.addCar(result).pipe(take(1)).subscribe(car => {
           this.carsRaw.push(car);
           const newCar = this.carsPipe.transform([car]);
           this.cars = [...this.cars, ...newCar];

@@ -30,13 +30,13 @@ export class CarCardComponent implements OnDestroy, OnChanges {
           bookings: bookings
         }
       });
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
         if (result) {
           const booking: Booking = {
             ...result,
             customer_id: this.customerId,
           };
-          this.bookingService.bookCar(booking).subscribe((result: any) => {
+          this.bookingService.bookCar(booking).pipe(take(1)).subscribe((result: any) => {
             if (result.error) {
               console.log(result);
             }
