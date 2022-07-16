@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Booking } from 'src/app/interfaces/booking';
 import { Car } from 'src/app/interfaces/car';
-import { BookingService } from 'src/app/services/booking.service';
+import { DatetimePipe } from 'src/app/pipes/datetime.pipe';
 
 
 interface intermediateData {
@@ -38,8 +38,12 @@ export class BookingDialogComponent implements OnInit, OnDestroy {
     from_time: '',
     to_time: '',
   };
+
+  dateTimePipe: DatetimePipe;
   
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { car: Car, bookings: Booking[] }, public dialogRef: MatDialogRef<BookingDialogComponent>, private bookingService: BookingService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { car: Car, bookings: Booking[] }, public dialogRef: MatDialogRef<BookingDialogComponent>) {
+    this.dateTimePipe = new DatetimePipe();
+   }
   ngOnInit(): void {
     this.subscriptions.push(this.bookingForm.valueChanges.subscribe( (_) => {
       this.priceTotal = this.calculatePrice();
@@ -59,14 +63,8 @@ export class BookingDialogComponent implements OnInit, OnDestroy {
 
   get checkAvailable() {
     const date = this.bookingForm.value.date ?? new Date();
-    const start_time = this.bookingForm.value.start_time;
-    let start: Date;
-    if (typeof start_time === 'string') {
-      start = new Date(`01 Jan 1970 ${start_time}`);
-    } else {
-      const now = new Date();
-      start = new Date(`01 Jan 1970 ${now.getHours()}:${now.getMinutes()}`);
-    }
+    const start_time = this.bookingForm.value.start_time as Date;
+    let start = this.dateTimePipe.timeOrNowToUnixTime(this.dateTimePipe.transform(start_time));
 
     const end_time = new Date(start.getTime() + (this.bookingForm.value.duration ?? 30) * 60000);
     const availableByTime = this.data.car.from_time.getTime() <= start.getTime() && this.data.car.to_time.getTime() >= end_time.getTime() && this.data.car.max_duration >= (this.bookingForm.value.duration ?? 30);

@@ -26,4 +26,17 @@ export class DatetimePipe implements PipeTransform {
   timeRangeToMinutes(timeRange: Date[]): number {
     return ((timeRange[1].getTime() - timeRange[0].getTime()) / 1000 / 60);
   }
+
+  timeToUnixTime(time: string): Date {
+    return new Date(`01 Jan 1970 ${time}`);
+  }
+
+  timeOrNowToUnixTime(time: string | undefined): Date {
+    if (typeof time === 'string') {
+      return this.timeToUnixTime(time);
+    } else {
+      const now = new Date();
+      return new Date(`01 Jan 1970 ${now.getHours()}:${now.getMinutes()}`);
+    }
+  }
 }

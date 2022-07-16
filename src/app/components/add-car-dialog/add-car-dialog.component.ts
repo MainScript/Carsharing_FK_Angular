@@ -32,8 +32,12 @@ export class AddCarDialogComponent {
   });
 
   subscriptions: Subscription[] = [];
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { car: Car, bookings: Booking[] }, public dialogRef: MatDialogRef<AddCarDialogComponent>, private dateTimePipe: DatetimePipe) { }
+  
+  dateTimePipe: DatetimePipe;
+  
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { car: Car, bookings: Booking[] }, public dialogRef: MatDialogRef<AddCarDialogComponent>) { 
+    this.dateTimePipe = new DatetimePipe();
+  }
 
   addCar() {
     const start = this.dateTimePipe.transform(this.timeInfos.value.from_time as Date);

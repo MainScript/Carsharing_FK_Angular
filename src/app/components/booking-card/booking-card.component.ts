@@ -16,8 +16,12 @@ export class BookingCardComponent implements OnInit {
   car: Car;
   booking: Booking;
   duration: number;
+  
+  dateTimePipe: DatetimePipe;
 
-  constructor(private dateTimePipe: DatetimePipe) { }
+  constructor() { 
+    this.dateTimePipe = new DatetimePipe();
+  }
 
   ngOnInit(): void {
     this.car = this.carBooking.car;
