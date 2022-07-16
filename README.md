@@ -13,3 +13,7 @@
 * Do Steps 3-5
 ## Tests
 * Run `npm run test`
+
+## UML
+* You can find the UML-Diagrams in the folder `UML\`
+* They're named according to their content
