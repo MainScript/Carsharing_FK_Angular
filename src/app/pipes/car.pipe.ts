@@ -47,7 +47,7 @@ export class CarPipe implements PipeTransform {
       return cars;
     }
     return cars.filter(car => {
-      return car.from_time.getTime() >= timeRange[0].getTime() && car.to_time.getTime() >= timeRange[1].getTime() && car.max_duration >= (timeRange[1].getTime() - timeRange[0].getTime()) / 1000 / 60;
+      return car.from_time.getTime() <= timeRange[0].getTime() && car.to_time.getTime() >= timeRange[1].getTime() && car.max_duration >= (timeRange[1].getTime() - timeRange[0].getTime()) / 1000 / 60;
     });
   }
 
